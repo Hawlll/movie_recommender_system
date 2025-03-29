@@ -5,5 +5,17 @@
 {% endblock %}
 
 {% block body %}
-<p>Solo leveling season 2 is goates </p>
+<h2>Welcome</h2>
+
+<!-- login button -->
+<a href="{{ url_for('login') }}">
+    <button>Login</button>
+</a>
+
+<!-- Create Account Button -->
+<a href="{{ url_for('register') }}">
+    <button>Create an Account</button>
+</a>
+
+
 {% endblock %}
