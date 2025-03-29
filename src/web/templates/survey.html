@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Page</title>
+</head>
+<body>
+    <h1>Survey Form</h1>
+    <form method="POST">
+        <label for="name">Your Name:</label>
+        <input type="text" name="name" required>
+        <br><br>
+
+        <!-- Question 1 (Radio Buttons) -->
+        <p>1. How satisfied are you with our service?</p>
+        <input type="radio" name="question1" value="Very Satisfied"> Very Satisfied<br>
+        <input type="radio" name="question1" value="Satisfied"> Satisfied<br>
+        <input type="radio" name="question1" value="Neutral"> Neutral<br>
+        <input type="radio" name="question1" value="Dissatisfied"> Dissatisfied<br>
+        <input type="radio" name="question1" value="Very Dissatisfied"> Very Dissatisfied<br>
+
+        <!-- Question 2 (Checkboxes) -->
+        <p>2. What features do you like? (Select all that apply)</p>
+        <input type="checkbox" name="question2" value="Speed"> Speed<br>
+        <input type="checkbox" name="question2" value="Design"> Design<br>
+        <input type="checkbox" name="question2" value="Ease of Use"> Ease of Use<br>
+
+        <!-- Question 3 (Dropdown) -->
+        <p>3. Would you recommend us?</p>
+        <select name="question3">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Maybe">Maybe</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Submit Survey</button>
+    </form>
+</body>
+</html>
