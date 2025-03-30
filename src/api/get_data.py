@@ -8,8 +8,7 @@ load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
 
-def genreDefiner(genreIds):
-    genreList = []
+def genreIdmap(id):
 
     genreDict = {28 : "Action",
                  12 : "Adventure",
@@ -31,11 +30,7 @@ def genreDefiner(genreIds):
                  10752 : "War",
                  37 : "Western"}
 
-    for id in (genreIds):
-        if id in genreDict.keys():
-            genreList.append(genreDict[id])
-
-    return genreList
+    return genreDict.get(id, None)
 
 def csvWriter(movieTitle, genreIds, movieRating, movieDesc):
     infoList = [movieTitle, genreIds, movieRating, movieDesc]
@@ -102,6 +97,4 @@ def main():
     elif userChoice == "2":
         movieData = csvReader()
         print(movieData)
-        
-
-main()
+    
