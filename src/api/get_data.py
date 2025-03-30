@@ -1,74 +1,13 @@
-import csv
+
 import json
 import urllib.request
 import os
+from csvHandler import csvReader, csvWriter
 from dotenv import load_dotenv
 
 load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
-
-def genreDefiner(genreIds):
-    genreList = []
-
-    genreDict = {28 : "Action",
-                 12 : "Adventure",
-                 16 : "Animation",
-                 35 : "Comedy",
-                 80 : "Crime",
-                 99 : "Documentary",
-                 18 : "Drama",
-                 10751 : "Family",
-                 14 : "Fantasy",
-                 36 : "History",
-                 27 : "Horror",
-                 10402 : "Music",
-                 9648 : "Mystery",
-                 10749 : "Romance",
-                 878 : "Science Fiction",
-                 10770 : "TV Movie",
-                 53 : "Thriller",
-                 10752 : "War",
-                 37 : "Western"}
-
-    for id in (genreIds):
-        if id in genreDict.keys():
-            genreList.append(genreDict[id])
-
-    return genreList
-
-def csvWriter(movieTitle, genreIds, movieRating, movieDesc):
-    infoList = [movieTitle, genreIds, movieRating, movieDesc]
-
-    with open("movieData.csv", "a", newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        writer.writerow(infoList)
-
-
-def csvReader():
-    data = []
-
-    with open("movieData.csv", "r", encoding='utf-8') as file:
-        reader = csv.reader(file)
-
-        for row in reader:
-            convertedList = []
-            toConvert = row[1]
-            toConvert = toConvert.replace("[", "")
-            toConvert = toConvert.replace("]", "")
-            toConvert = toConvert.split(",")
-
-            for num in toConvert:
-
-                if len(num) > 0:
-                    convertedList.append(int(num))
-                    
-            row[1] = convertedList
-            
-            data.append(row)
-
-        return data
-
 
 def newData(API_KEY, numPages):
 
@@ -103,5 +42,3 @@ def main():
         movieData = csvReader()
         print(movieData)
         
-
-main()
