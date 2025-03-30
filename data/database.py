@@ -56,6 +56,15 @@ def getUserPreferences(name):
 	if (pref == []): return -1
 	return str(pref[0][0])
 
+#Updates the preference field of the user
+def updateUserPreferences(name, updated):
+	conn = sqlite3.connect(databasePath)
+	cur = conn.cursor()
+	cur.execute("UPDATE users SET preferences = ? WHERE name = ?", (updated, name))
+	conn.commit()
+	conn.close()
+	return 0
+
 #Return the hashed password of a given user
 def getUserHash(name):
 	conn = sqlite3.connect(databasePath)
