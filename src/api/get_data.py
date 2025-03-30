@@ -1,3 +1,4 @@
+
 import json
 import urllib.request
 import os
@@ -41,5 +42,3 @@ def main():
         movieData = csvReader()
         print(movieData)
         
-
-main()
