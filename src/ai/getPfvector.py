@@ -25,7 +25,7 @@ def getPfvector(X, random_state=42):
     # Find the optimal number of clusters using silehoutte scores
     silehoutteScores = []
 
-    for k in range(2, X.shape[0]):
+    for k in range(2, X.shape[0]+1):
 
         model = KMeans(k, random_state=random_state, n_init="auto")
 
@@ -35,6 +35,7 @@ def getPfvector(X, random_state=42):
         silehoutteScores.append((score, k))
     
     # Train KMeans on optimal clusters and return the averaged weighted clusters
+    print("silethoutte scores: ", silehoutteScores)
     kOpt = max(silehoutteScores)[1]
 
     knn = KMeans(kOpt, random_state=random_state, n_init="auto")

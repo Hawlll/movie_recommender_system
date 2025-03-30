@@ -2,11 +2,19 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import sys
 from pathlib import Path
 
+from src.account.account import getUserVector
+
 currentDir = Path(__file__).resolve().parent.parent
 currentDir = currentDir / 'account'
 sys.path.append(str(currentDir))
 
 import account
+
+currentDir = currentDir.parent
+currentDir = currentDir / 'ai'
+sys.path.append(str(currentDir))
+
+import getPfvector, getNsimilarmovies
 
 app = Flask(__name__)
 app.secret_key = "one_two_tree"
@@ -18,7 +26,9 @@ account.initializeDatabase()
 def add_to_group(username):
     if "group_members" not in session:
         session["group_members"] = []  # Initialize if not set
-    session["group_members"].append(username)
+
+    if username not in session["group_members"]:
+        session["group_members"].append(username)
     session.modified = True
 
 # Get the group members
@@ -118,6 +128,17 @@ def add_user():
             return redirect(url_for("home"))
         else:
             return "User not found"
+
+@app.route('/results', methods=['GET', 'POST'])
+def results():
+    if request.method == "GET":
+        add_to_group(session["username"])
+        res = [account.getUserVector(user) for user in session['group_members'] if account.getUserVector(user) != -1]
+        groupPfvector = getPfvector.getPfvector(res)
+        data = getNsimilarmovies.getNsimilarmovies(10, groupPfvector)
+        print(data)
+    return redirect(url_for("home"))
+
 
 
 
