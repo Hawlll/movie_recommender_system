@@ -49,7 +49,7 @@ def main():
 
     elif userChoice == "2":
         movieData = csvReader()
-        print(movieData[0])
+        print(movieData)
         
 
 main()
