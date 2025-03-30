@@ -9,3 +9,8 @@ def getScore(prefVector, movieVector):
     movieVector = np.array(movieVector)
 
     return np.linalg.norm(prefVector - movieVector)
+
+
+if __name__ == "__main__":
+
+    print("File is not meant for running..")

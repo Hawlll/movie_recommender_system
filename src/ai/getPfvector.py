@@ -40,4 +40,8 @@ def getPfvector(X, random_state=42, max_clusters=10):
     return pfVector
 
 
+if __name__ == "__main__":
+
+    print("File is not meant for running..")
+
 
