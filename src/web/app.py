@@ -104,7 +104,7 @@ def home():
     user_preference = account.getUserVector(username)
 
     # If user preference is equal -1 it means the user is new
-    if user_preference - 1:
+    if user_preference ==  -1:
         return redirect(url_for("survey"))
 
     return render_template("home.html", username=username)
