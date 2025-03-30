@@ -9,6 +9,10 @@ sys.path.insert(0, str(curDir))
 
 import database
 
+def initializeDatabase():
+	database.databaseInit()
+	return 0
+
 def createUser(username, password, preferences):
 	salt = bcrypt.gensalt()
 	prefStr = ''
@@ -26,7 +30,7 @@ def createUser(username, password, preferences):
 			prefStr = prefStr + 'ABCDEFGHIJK'[preferences[6]]
 		else:
 			return -1
-	return database.databaseAddUser(username, bcrypt.hashpw(password.encode('utf-8'), salt), preferences)
+	return database.databaseAddUser(username, bcrypt.hashpw(password.encode('utf-8'), salt), prefStr)
 
 def verifyUserLogin(username, password):
 	if not (username in database.getUserList()): return False
@@ -36,7 +40,7 @@ def doesUserExist(username):
 	return username in database.getUserList()
 
 def getUserVector(username):
-	if not doesUserExist(): return -1
+	if not doesUserExist(username): return -1
 	pref = database.getUserPreferences(username)
 	if (pref == 'EMPTY'): return -1
 	vec = [0, 0, 0, 0, 0, 0, 0]
@@ -69,4 +73,4 @@ def setUserPreferences(user, pref):
 		else:
 			return -1
 	return database.updateUserPreferences(user, prefStr)
-	
+
