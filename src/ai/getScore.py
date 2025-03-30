@@ -8,6 +8,7 @@ def getScore(prefVector, movieVector):
     prefVector = np.array(prefVector)
     movieVector = np.array(movieVector)
 
+
     return np.linalg.norm(prefVector - movieVector)
 
 
