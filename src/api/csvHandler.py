@@ -1,13 +1,14 @@
 import csv
 
-def csvWriter(movieTitle, genreIds, movieRating, movieDesc):
-    infoList = [movieTitle, genreIds, movieRating, movieDesc]
+# writes the data sent as a parameter to a file
+def csvWriter(movieTitle, genreIds, movieRating, movieDesc, posterUrl):
+    infoList = [movieTitle, genreIds, movieRating, movieDesc, posterUrl]
 
     with open("movieData.csv", "a", newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow(infoList)
 
-
+# reads the data in the csv file back into a list
 def csvReader():
     data = []
 
@@ -15,6 +16,8 @@ def csvReader():
         reader = csv.reader(file)
 
         for row in reader:
+            # next few lines converts the string in position 1 to a list
+            # that contains each movie's genre id numbers
             convertedList = []
             toConvert = row[1]
             toConvert = toConvert.replace("[", "")
