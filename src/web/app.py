@@ -1,12 +1,62 @@
-from flask import Flask, render_template, request, redirect, url_for
+
+from flask import Flask, render_template, request, redirect, url_for, session
+import sys
+from pathlib import Path
+
+currentDir = Path(__file__).resolve().parent.parent
+currentDir = currentDir / 'account'
+sys.path.append(str(currentDir))
+
+import account
 
 app = Flask(__name__)
+app.secret_key = "one_two_tree"
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+@app.route('/survey', methods=['GET', 'POST'])
+def survey():
+
+    username = session.get('username')
+
+    if not username:
+        return redirect(url_for('login')) # Checks if the user is in
+
+    if request.method == "POST":
+        # Initialize data_list with all zeros
+        data_list = [0, 0, 0, 0, 0, 0, 0]
+
+        # Get selected genres
+        selected_genres = request.form.getlist("GenresQuestion[]")
+        family_genre = request.form.get("FamilyGenre")
+        rating = request.form.get("RatingQuestion")
+
+        # Mapping genres to their respective indexes in data_list
+        genre_map = {
+            "Action Adventure": 0,
+            "Horror & Thriller": 1,
+            "Sci-Fi & Fantasy": 2,
+            "Drama & Romance": 3,
+            "Historic": 4,
+        }
+
+        # Update data_list based on selected genres
+        for genre in selected_genres:
+            if genre in genre_map:
+                data_list[genre_map[genre]] = 1 # marks which options were picked
+        if family_genre == "Yes":
+            data_list[5] = 1
+        data_list[6] = int(rating)
+
+        # Store the completed survey in the database
+        account.setUserPreferences(username, data_list)
+
+
+    # For GET request, just display the survey page with an empty form
+    return render_template("survey.html")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -14,12 +64,13 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
 
-        if username == username and password == password:
-            return redirect(url_for("home"))
+        if account.verifyUserLogin(username, password):
+            session['username'] = username
+            return redirect(url_for('home'))
         else:
-            return "Invalid username or password, please try again"
+            return "Invalid credentials"
 
-    return render_template('login_screen.html')
+    return render_template("login_screen.html")
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -29,13 +80,30 @@ def register():
         username = request.form.get("username")
         password = request.form.get("password")
 
-        return f"Account {username} has been created. Please login."
+        if account.userExists(username):
+            return "Username already exists"
+        else:
+            if account.createUser(username, password, None):
+                session['username'] = username
+                return redirect(url_for("home"))
+            else:
+                return "Error creating user"
 
     return render_template("register.html")
 
 @app.route('/home')
 def home():
-    return render_template("home.html")
+    username = session.get('username')
+
+    if not username:
+        return redirect(url_for('login')) # makes sure the user is logged in
+
+    user_preference = account.getUserPreference(username)
+
+    # If user preference is equal -1 it means the user is new
+    new_user = (user_preference == -1)
+
+    return render_template("home.html", new_user=new_user, username=username)
 
 
 if __name__ == '__main__':
