@@ -64,8 +64,7 @@ def getUserVector(username):
     if not pref[6] in 'ABCDEFGHIJK': return -1
     vec[6] = 'ABCDEFGHIJK'.index(pref[6])
     return vec
-
-
+  
 #updates the preferences of a given user
 def setUserPreferences(user, preferences):
     if not doesUserExist(user): return -1
