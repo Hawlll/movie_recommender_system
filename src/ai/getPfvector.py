@@ -56,21 +56,6 @@ def getPfvector(X, random_state=42):
 
     return pfVector
 
-
-movie_data = [
-    [1, 0, 1, 0, 0, 0, 7.5],  # Action/Sci-Fi, Rating 7.5
-    [0, 1, 0, 1, 0, 0, 6.2],  # Horror/Drama, Rating 6.2
-    [1, 0, 1, 1, 0, 0, 8.2],  # Action/Sci-Fi/Drama, Rating 8.2
-    [0, 1, 0, 0, 0, 1, 5.8],  # Horror/Family, Rating 5.8
-    [0, 0, 1, 0, 1, 0, 7.9],  # Sci-Fi/History, Rating 7.9
-    [1, 0, 0, 1, 0, 0, 8.5],  # Action/Drama, Rating 8.5
-    [0, 1, 1, 0, 0, 0, 6.8],  # Horror/Sci-Fi, Rating 6.8
-    [1, 1, 0, 0, 1, 0, 7.0],  # Action/Horror/History, Rating 7.0
-    [0, 0, 0, 1, 0, 1, 9.1],  # Drama/Family, Rating 9.1
-    [1, 0, 1, 1, 1, 0, 8.7]   # Action/Sci-Fi/Drama/History, Rating 8.7
-]
-print(getPfvector(movie_data))
-
 if __name__ == "__main__":
 
     print("File is not meant for running..")
