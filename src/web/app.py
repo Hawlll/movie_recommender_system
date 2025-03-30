@@ -20,7 +20,6 @@ def add_to_group(username):
         session["group_members"] = []  # Initialize if not set
     session["group_members"].append(username)
     session.modified = True
-    print(session["group_members"])
 
 # Get the group members
 def get_group():
@@ -118,7 +117,6 @@ def add_user():
             add_to_group(addUser)
             return redirect(url_for("home"))
         else:
-            print(addUser)
             return "User not found"
 
 
