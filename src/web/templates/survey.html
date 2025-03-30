@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Page</title>
+</head>
+<body>
+    <h1>Survey Form</h1>
+    <form method="POST">
+
+
+        <p>1. What genres do you enjoy? (Select all that apply)</p>
+        <input type="checkbox" name="GenresQuestion[]" value="Action Adventure" required> Action Adventure<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Horror & Thriller" required> Horror & Thriller<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Sci-Fi & Fantasy" required> Sci-Fi & Fantasy<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Drama & Romance" required> Drama & Romance<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Historic" required> Historic<br>
+
+        <p>2. Would you like family movies?</p>
+        <input type="radio" name="FamilyGenre" value="Yes" required> Yes<br>
+        <input type="radio" name="FamilyGenre" value="No" required> No<br>
+
+        <p>3. Up to what ratings do you enjoy?</p>
+        <input type="radio" name="RatingQuestion" value=2 required> 1 - 2<br>
+        <input type="radio" name="RatingQuestion" value=4 required> 3 - 4<br>
+        <input type="radio" name="RatingQuestion" value=6 required> 5 - 6<br>
+        <input type="radio" name="RatingQuestion" value=8 required> 6 - 8<br>
+        <input type="radio" name="RatingQuestion" value=10 required> 8 - 10<br>
+
+        <button type="submit">Submit Survey</button>
+    </form>
+
+    {% if genre_list or rating_list or family_answer %}
+        <h3>Survey Results:</h3>
+        <ul>
+            {% if genre_list %}
+                <li><strong>Genres Selected:</strong> {{ genre_list | join(", ") }}</li>
+            {% endif %}
+            {% if family_answer %}
+                <li><strong>Family Movies Preference:</strong> {{ family_answer }}</li>
+            {% endif %}
+            {% if rating_list %}
+                <li><strong>Ratings Preferred:</strong> {{ rating_list }}</li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+</body>
+</html>
