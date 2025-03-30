@@ -133,15 +133,15 @@ def add_user():
 
 @app.route('/results', methods=['GET', 'POST'])
 def results():
+    data = []
     if request.method == "GET":
         add_to_group(session["username"])
         res = [account.getUserVector(user) for user in session['group_members'] if account.getUserVector(user) != -1]
         groupPfvector = getPfvector.getPfvector(res)
-        data = getNsimilarmovies.getNsimilarmovies(10, groupPfvector)
-        print(data)
-    return redirect(url_for("home"))
-
-
+        data = getNsimilarmovies.getNsimilarmovies(5, groupPfvector)
+        for row in data:
+            row[1] = ", ".join(row[1])
+    return render_template("results.html", data=data)
 
 
 @app.route('/home')

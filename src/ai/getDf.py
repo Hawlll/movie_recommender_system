@@ -29,7 +29,7 @@ def getDf():
 
         data = csvReader()
     
-    df = pd.DataFrame(data, columns=COLUMN_NAMES)    
+    df = pd.DataFrame(data, columns=COLUMN_NAMES)
     return df
 
 if __name__ == "__main__":
