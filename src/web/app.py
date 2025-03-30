@@ -19,6 +19,8 @@ def add_to_group(username):
     if "group_members" not in session:
         session["group_members"] = []  # Initialize if not set
     session["group_members"].append(username)
+    session.modified = True
+    print(session["group_members"])
 
 # Get the group members
 def get_group():
@@ -79,6 +81,7 @@ def login():
         password = request.form.get('password')
 
         if account.verifyUserLogin(username, password):
+            session.clear()
             session['username'] = username
             return redirect(url_for('home'))
         else:
@@ -132,7 +135,7 @@ def home():
     if user_preference == -1:
         return redirect(url_for("survey"))
 
-    return render_template("home.html", username=username)
+    return render_template("home.html", user_name=username, group_members=get_group())
 
 
 @app.route('/logout')
