@@ -1,10 +1,14 @@
 import csv
+import sys
+from pathlib import Path
+
+csvDir = str(Path(__file__).resolve().parent.parent.parent / "movieData.csv")
 
 # writes the data sent as a parameter to a file
 def csvWriter(movieTitle, genreIds, movieRating, movieDesc, posterUrl):
     infoList = [movieTitle, genreIds, movieRating, movieDesc, posterUrl]
 
-    with open("movieData.csv", "a", newline='', encoding='utf-8') as file:
+    with open(csvDir, "a", newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow(infoList)
 
@@ -12,7 +16,7 @@ def csvWriter(movieTitle, genreIds, movieRating, movieDesc, posterUrl):
 def csvReader():
     data = []
 
-    with open("movieData.csv", "r", encoding='utf-8') as file:
+    with open(csvDir, "r", encoding='utf-8') as file:
         reader = csv.reader(file)
 
         for row in reader:

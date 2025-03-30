@@ -9,4 +9,4 @@ INDEX_5 = set(["Family"])
 
 
 # Movie Dataframe
-COLUMN_NAMES = ["title", "genre_ids", "movie_rating", "desc"]
+COLUMN_NAMES = ["title", "genre_ids", "movie_rating", "desc", "poster"]
