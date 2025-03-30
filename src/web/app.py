@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, redirect, url_for, session
 import sys
 from pathlib import Path
@@ -12,18 +11,20 @@ import account
 app = Flask(__name__)
 app.secret_key = "one_two_tree"
 
+account.initializeDatabase()
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
 @app.route('/survey', methods=['GET', 'POST'])
 def survey():
-
     username = session.get('username')
 
     if not username:
-        return redirect(url_for('login')) # Checks if the user is in
+        return redirect(url_for('login'))  # Checks if the user is in
 
     if request.method == "POST":
         # Initialize data_list with all zeros
@@ -46,7 +47,7 @@ def survey():
         # Update data_list based on selected genres
         for genre in selected_genres:
             if genre in genre_map:
-                data_list[genre_map[genre]] = 1 # marks which options were picked
+                data_list[genre_map[genre]] = 1  # marks which options were picked
         if family_genre == "Yes":
             data_list[5] = 1
         data_list[6] = int(rating)
@@ -54,9 +55,11 @@ def survey():
         # Store the completed survey in the database
         account.setUserPreferences(username, data_list)
 
+        return redirect(url_for("home"))
 
     # For GET request, just display the survey page with an empty form
     return render_template("survey.html")
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -75,15 +78,14 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
 
-        if account.userExists(username):
+        if account.doesUserExist(username):
             return "Username already exists"
         else:
-            if account.createUser(username, password, None):
+            if account.createUser(username, password, None) == 0:
                 session['username'] = username
                 return redirect(url_for("home"))
             else:
@@ -91,20 +93,26 @@ def register():
 
     return render_template("register.html")
 
+
 @app.route('/home')
 def home():
     username = session.get('username')
 
     if not username:
-        return redirect(url_for('login')) # makes sure the user is logged in
+        return redirect(url_for('login'))  # makes sure the user is logged in
 
-    user_preference = account.getUserPreference(username)
+    user_preference = account.getUserVector(username)
 
     # If user preference is equal -1 it means the user is new
-    new_user = (user_preference == -1)
+    if user_preference - 1:
+        return redirect(url_for("survey"))
 
-    return render_template("home.html", new_user=new_user, username=username)
+    return render_template("home.html", username=username)
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
