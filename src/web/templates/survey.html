@@ -8,34 +8,43 @@
 <body>
     <h1>Survey Form</h1>
     <form method="POST">
-        <label for="name">Your Name:</label>
-        <input type="text" name="name" required>
-        <br><br>
 
-        <!-- Question 1 (Radio Buttons) -->
-        <p>1. How satisfied are you with our service?</p>
-        <input type="radio" name="question1" value="Very Satisfied"> Very Satisfied<br>
-        <input type="radio" name="question1" value="Satisfied"> Satisfied<br>
-        <input type="radio" name="question1" value="Neutral"> Neutral<br>
-        <input type="radio" name="question1" value="Dissatisfied"> Dissatisfied<br>
-        <input type="radio" name="question1" value="Very Dissatisfied"> Very Dissatisfied<br>
 
-        <!-- Question 2 (Checkboxes) -->
-        <p>2. What features do you like? (Select all that apply)</p>
-        <input type="checkbox" name="question2" value="Speed"> Speed<br>
-        <input type="checkbox" name="question2" value="Design"> Design<br>
-        <input type="checkbox" name="question2" value="Ease of Use"> Ease of Use<br>
+        <p>1. What genres do you enjoy? (Select all that apply)</p>
+        <input type="checkbox" name="GenresQuestion[]" value="Action Adventure"> Action Adventure<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Horror & Thriller"> Horror & Thriller<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Sci-Fi & Fantasy"> Sci-Fi & Fantasy<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Drama & Romance"> Drama & Romance<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Historic"> Historic<br>
 
-        <!-- Question 3 (Dropdown) -->
-        <p>3. Would you recommend us?</p>
-        <select name="question3">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-            <option value="Maybe">Maybe</option>
-        </select>
-        <br><br>
+        <p>2. Would you like family movies?</p>
+        <input type="radio" name="FamilyGenre" value="Yes"> Yes<br>
+        <input type="radio" name="FamilyGenre" value="No"> No<br>
+
+        <p>3. Up to what ratings do you enjoy?</p>
+        <input type="radio" name="RatingQuestion" value=1> 1 Star<br>
+        <input type="radio" name="RatingQuestion" value=2> 2 Star<br>
+        <input type="radio" name="RatingQuestion" value=3> 3 Star<br>
+        <input type="radio" name="RatingQuestion" value=4> 4 Star<br>
+        <input type="radio" name="RatingQuestion" value=5> 5 Star<br>
 
         <button type="submit">Submit Survey</button>
     </form>
+
+    {% if genre_list or rating_list or family_answer %}
+        <h3>Survey Results:</h3>
+        <ul>
+            {% if genre_list %}
+                <li><strong>Genres Selected:</strong> {{ genre_list | join(", ") }}</li>
+            {% endif %}
+            {% if family_answer %}
+                <li><strong>Family Movies Preference:</strong> {{ family_answer }}</li>
+            {% endif %}
+            {% if rating_list %}
+                <li><strong>Ratings Preferred:</strong> {{ rating_list }}</li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
 </body>
 </html>
