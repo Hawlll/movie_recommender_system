@@ -1,9 +1,12 @@
 {% extends 'basic.html' %}
 
-{% block head %}
-<title>Movie</title>
-{% endblock %}
+{% block title %}Home{% endblock %}
 
-{% block body %}
-<p>Solo leveling season 2 is goates </p>
+{% block content %}
+<h1 class="mb-4">Welcome to My Flask App</h1>
+<p>Select an option:</p>
+<div>
+    <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">Login</a>
+    <a href="{{ url_for('register') }}" class="btn btn-secondary btn-lg">Create an Account</a>
+</div>
 {% endblock %}

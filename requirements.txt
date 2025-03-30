@@ -2,3 +2,5 @@ numpy
 sklearn
 pandas
 os
+dotenv
+bcrypt
