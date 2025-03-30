@@ -11,22 +11,22 @@
 
 
         <p>1. What genres do you enjoy? (Select all that apply)</p>
-        <input type="checkbox" name="GenresQuestion[]" value="Action Adventure"> Action Adventure<br>
-        <input type="checkbox" name="GenresQuestion[]" value="Horror & Thriller"> Horror & Thriller<br>
-        <input type="checkbox" name="GenresQuestion[]" value="Sci-Fi & Fantasy"> Sci-Fi & Fantasy<br>
-        <input type="checkbox" name="GenresQuestion[]" value="Drama & Romance"> Drama & Romance<br>
-        <input type="checkbox" name="GenresQuestion[]" value="Historic"> Historic<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Action Adventure" required> Action Adventure<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Horror & Thriller" required> Horror & Thriller<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Sci-Fi & Fantasy" required> Sci-Fi & Fantasy<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Drama & Romance" required> Drama & Romance<br>
+        <input type="checkbox" name="GenresQuestion[]" value="Historic" required> Historic<br>
 
         <p>2. Would you like family movies?</p>
-        <input type="radio" name="FamilyGenre" value="Yes"> Yes<br>
-        <input type="radio" name="FamilyGenre" value="No"> No<br>
+        <input type="radio" name="FamilyGenre" value="Yes" required> Yes<br>
+        <input type="radio" name="FamilyGenre" value="No" required> No<br>
 
         <p>3. Up to what ratings do you enjoy?</p>
-        <input type="radio" name="RatingQuestion" value=1> 1 Star<br>
-        <input type="radio" name="RatingQuestion" value=2> 2 Star<br>
-        <input type="radio" name="RatingQuestion" value=3> 3 Star<br>
-        <input type="radio" name="RatingQuestion" value=4> 4 Star<br>
-        <input type="radio" name="RatingQuestion" value=5> 5 Star<br>
+        <input type="radio" name="RatingQuestion" value=2 required> 1 - 2<br>
+        <input type="radio" name="RatingQuestion" value=4 required> 3 - 4<br>
+        <input type="radio" name="RatingQuestion" value=6 required> 5 - 6<br>
+        <input type="radio" name="RatingQuestion" value=8 required> 6 - 8<br>
+        <input type="radio" name="RatingQuestion" value=10 required> 8 - 10<br>
 
         <button type="submit">Submit Survey</button>
     </form>

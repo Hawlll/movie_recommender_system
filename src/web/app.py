@@ -35,9 +35,10 @@ def survey():
             data_list[5] = 1
         data_list[6] = int(rating)
 
+
         print(data_list)
 
-        # Pass the result to next page lol
+        # Pass the result and user to the next page
         return render_template("survey.html", data=data_list)
 
     # For GET request, just display the survey page with an empty form
