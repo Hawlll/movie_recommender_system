@@ -1,4 +1,5 @@
-import numpy as np
+from api.get_data import genreDefiner
+from constants import INDEX_0, INDEX_1, INDEX_2, INDEX_3, INDEX_4, INDEX_5, VECTOR_LENGTH
 
 def vectorize(movieData):
 
@@ -18,7 +19,25 @@ def vectorize(movieData):
     Index 6: least preferred movie rating
     """
 
-    pass
+    vector = [0*VECTOR_LENGTH]
+
+    genres = movieData["genre_ids"]
+
+    genres = set(genreDefiner(genres))
+
+    for i, elem in enumerate([INDEX_0, INDEX_1, INDEX_2, INDEX_3, INDEX_4, INDEX_5]):
+
+        if genres.issubset(elem):
+
+            vector[i] = 1
+    
+    vector[-1] = movieData["movie_rating"]
+
+    return vector
+
+
+
+
 
 
 

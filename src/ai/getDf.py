@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+from src.constants import COLUMN_NAMES
 
 def getDf(fp):
 
@@ -7,7 +8,7 @@ def getDf(fp):
 
     if os.path.exists(fp):
 
-        return pd.read_csv(fp)
+        return pd.read_csv(fp, names=COLUMN_NAMES)
 
     print(f"File path does not exist: {fp}")
     
