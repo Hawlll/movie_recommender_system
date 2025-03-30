@@ -32,5 +32,5 @@ def csvReader():
             row[1] = convertedList
             
             data.append(row)
-
+            
         return data

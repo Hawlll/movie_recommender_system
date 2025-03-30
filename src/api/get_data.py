@@ -48,8 +48,14 @@ def main():
         newData(API_KEY, numPages)
 
     elif userChoice == "2":
-        movieData = csvReader()
-        print(movieData)
+        try: 
+            movieData = csvReader()
+            print(movieData)
+
+        except FileNotFoundError:
+            print("Dataset not found or does not exist. Creating new dataset with 20 pages")
+            newData(API_KEY, 20)
+            csvReader()
         
 
 main()
