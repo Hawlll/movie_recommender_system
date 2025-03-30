@@ -61,7 +61,7 @@ def getUserVector(username):
 	return vec
 
 #updates the preferences of a given user
-def setUserPreferences(user, pref):
+def setUserPreferences(user, preferences):
 	if not doesUserExist(user): return -1
 	prefStr = ''
 	if preferences == None:
