@@ -14,12 +14,13 @@ def survey():
         # Initialize data_list with all zeros
         data_list = [0, 0, 0, 0, 0, 0, 0]
 
+
         # Get selected genres
         selected_genres = request.form.getlist("GenresQuestion[]")
         family_genre = request.form.get("FamilyGenre")
         rating = request.form.get("RatingQuestion")
 
-        # Mapping genres to their respective indexes in data_list
+        # oh yeah genre map
         genre_map = {
             "Action Adventure": 0,
             "Horror & Thriller": 1,
@@ -35,10 +36,7 @@ def survey():
         if family_genre == "Yes":
             data_list[5] = 1
         data_list[6] = int(rating)
-
-
         print(data_list)
-
         # Pass the result and user to the next page
         return render_template("survey.html", data=data_list)
 
