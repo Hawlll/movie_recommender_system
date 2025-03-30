@@ -9,10 +9,12 @@ sys.path.insert(0, str(curDir))
 
 import database
 
+#Creates a database if one does not exist, primarily an abstraction from the database library
 def initializeDatabase():
 	database.databaseInit()
 	return 0
 
+#Create a user from the front-end data
 def createUser(username, password, preferences):
 	salt = bcrypt.gensalt()
 	prefStr = ''
@@ -32,13 +34,16 @@ def createUser(username, password, preferences):
 			return -1
 	return database.databaseAddUser(username, bcrypt.hashpw(password.encode('utf-8'), salt), prefStr)
 
+#Returns True if username and password match to an existing database entry
 def verifyUserLogin(username, password):
 	if not (username in database.getUserList()): return False
 	return bcrypt.checkpw(password.encode('utf-8'), database.getUserHash(username))
 
+#Returns true if user exists
 def doesUserExist(username):
 	return username in database.getUserList()
 
+#Returns the preference vector of a given user
 def getUserVector(username):
 	if not doesUserExist(username): return -1
 	pref = database.getUserPreferences(username)
@@ -55,6 +60,7 @@ def getUserVector(username):
 	vec[6] = 'ABCDEFGHIJK'.index(pref[6])
 	return vec
 
+#updates the preferences of a given user
 def setUserPreferences(user, pref):
 	if not doesUserExist(user): return -1
 	prefStr = ''
