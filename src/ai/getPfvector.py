@@ -22,6 +22,10 @@ def getPfvector(X, random_state=42):
 
         return -1
 
+    elif X.shape[0] <= 2:
+
+        return np.average(X, axis=0)
+
     # Find the optimal number of clusters using silehoutte scores
     silehoutteScores = []
 
