@@ -1,14 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey Results</title>
-</head>
-<body>
-    <h1>Thank You, {{ name }}!</h1>
-    <p><b>Q1:</b> {{ q1 }}</p>
-    <p><b>Q2:</b> {{ q2 }}</p>
-    <p><b>Q3:</b> {{ q3 }}</p>
-</body>
-</html>
+{% extends 'basic.html' %}
+
+{% block title %}Results{% endblock %}
+
+{% block content %}
+<h1>Movie Recommendations</h1>
+<div class="movie-list">
+    {% for movie in data %}
+        <div class="movie-item">
+            <h2>{{ movie[0] }}</h2>
+            <p><strong>Genres: </strong>{{ movie[1] }}</p>
+            <p><strong>Rating:</strong> {{ movie[2] }}</p>
+            <p><strong>Description:</strong> {{ movie[3] }}</p>
+             <img src="{{ movie[4] }}" alt="Poster for {{ movie[0] }}" class="movie-poster">
+            <p><strong>Similarity Score:</strong> {{ movie[5] }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
