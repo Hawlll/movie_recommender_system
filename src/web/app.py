@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ def login():
         password = request.form.get('password')
 
         if username == username and password == password:
-            return "Login Success"
+            return redirect(url_for("home"))
         else:
             return "Invalid username or password, please try again"
 
@@ -32,6 +32,10 @@ def register():
         return f"Account {username} has been created. Please login."
 
     return render_template("register.html")
+
+@app.route('/home')
+def home():
+    return render_template("home.html")
 
 
 if __name__ == '__main__':
