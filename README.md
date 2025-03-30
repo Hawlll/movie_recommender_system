@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project is a web-based movie recommender system designed for groups, built for the Hackathon PSU competition. It allows users to create accounts, input their movie preferences, and receive personalized movie recommendations based on group consensus. The system utilizes KMeans clustering to generate a group preference vector and the TMDB API to fetch movie data. User accounts and preferences are stored in a SQLite database.
+CrewUp is a web-based movie recommender system designed for groups, built for the Hackathon PSU competition. It allows users to create accounts, input their movie preferences, and receive personalized movie recommendations based on group consensus. The system utilizes KMeans clustering to generate a group preference vector and the TMDB API to fetch movie data. User accounts and preferences are stored in a SQLite database.
 
 ## Features
 
