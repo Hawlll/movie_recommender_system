@@ -14,46 +14,22 @@ app.secret_key = "one_two_tree"
 account.initializeDatabase()
 
 
+# Add a user to the list
+def add_to_group(username):
+    if "group_members" not in session:
+        session["group_members"] = []  # Initialize if not set
+    session["group_members"].append(username)
+    session.modified = True
+    print(session["group_members"])
+
+# Get the group members
+def get_group():
+    return session.get("group_members", [])  # Return empty if not found
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
-
-
-# @app.route('/survey', methods=['GET', 'POST'])
-# def survey():
-#     if request.method == "POST":
-#         # Initialize data_list with all zeros
-#         data_list = [0, 0, 0, 0, 0, 0, 0]
-#
-#         # Get selected genres
-#         selected_genres = request.form.getlist("GenresQuestion[]")
-#         family_genre = request.form.get("FamilyGenre")
-#         rating = request.form.get("RatingQuestion")
-#
-#         # Mapping genres to their respective indexes in data_list
-#         genre_map = {
-#             "Action Adventure": 0,
-#             "Horror & Thriller": 1,
-#             "Sci-Fi & Fantasy": 2,
-#             "Drama & Romance": 3,
-#             "Historic": 4,
-#         }
-#
-#         # Update data_list based on selected genres
-#         for genre in selected_genres:
-#             if genre in genre_map:
-#                 data_list[genre_map[genre]] = 1  # marks which options were picked
-#         if family_genre == "Yes":
-#             data_list[5] = 1
-#         data_list[6] = int(rating)
-#
-#         print(data_list)
-#
-#         # Pass the result and user to the next page
-#         return render_template("survey.html", data=data_list)
-#
-#     # For GET request, just display the survey page with an empty form
-#     return render_template("survey.html")
 
 
 @app.route('/survey', methods=['GET', 'POST'])
@@ -105,6 +81,7 @@ def login():
         password = request.form.get('password')
 
         if account.verifyUserLogin(username, password):
+            session.clear()
             session['username'] = username
             return redirect(url_for('home'))
         else:
@@ -130,6 +107,20 @@ def register():
 
     return render_template("register.html")
 
+@app.route('/add_user', methods=['GET', 'POST'])
+def add_user():
+    if request.method == "POST":
+        addUser = request.form.get("addUser")
+
+
+        if account.doesUserExist(addUser):
+            add_to_group(addUser)
+            return redirect(url_for("home"))
+        else:
+            print(addUser)
+            return "User not found"
+
+
 
 @app.route('/home')
 def home():
@@ -144,7 +135,7 @@ def home():
     if user_preference == -1:
         return redirect(url_for("survey"))
 
-    return render_template("home.html", username=username)
+    return render_template("home.html", user_name=username, group_members=get_group())
 
 
 @app.route('/logout')
