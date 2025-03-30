@@ -1,4 +1,4 @@
-# Hackathon PSU: Group Movie Recommender
+# Hackathon PSU: CrewUp
 
 ## Project Overview
 
