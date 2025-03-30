@@ -1,0 +1,31 @@
+{% extends 'basic.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div> class="container mt-4 "
+  {% if new_user %}
+    <h2>Welcome to the Movie Recommedator </h2>
+    <p>We need some information to be provided</p>
+    <a href="{{ url_for('survey') }}" class="btn btn-primary">Take Survey</a>
+  {% else % }
+    <h2>Welcome back, {{ user_name }}!</h2>
+    <p>Manage your movie group below</p>
+
+    <form method="post" action="{{ url_for('add_user') }}">
+      <div class="mb-3">
+        <label for="addUser" class="form-label">Add a User to Your Group</label>
+        <input type="text" id="addUser" name="addUser" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-secondary">Add User</button>
+    </form>
+
+  <h3 class="mt-4">Your Group Members: </h3>
+  <ul class="list-group">
+    {% for member in group_member %}
+      <li class="list-group-item">{{ member }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endblock %}
