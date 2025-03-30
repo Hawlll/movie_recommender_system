@@ -9,7 +9,7 @@ from ai import getDf, getScore, vectorize
 
 def getNsimilarmovies(N, pfVector):
 
-    # Returns n number of movies from ranking in most similar 
+    # Returns n number of movies from ranking in most similar
 
     df = getDf.getDf()
     df.drop_duplicates(inplace=True, subset=["title"])

@@ -2,6 +2,14 @@
 import json
 import urllib.request
 import os
+import sys
+from pathlib import Path
+
+curDir = Path(__file__).resolve()
+curDir = curDir.parent
+sys.path.insert(0, str(curDir))
+
+
 from csvHandler import csvReader, csvWriter
 from dotenv import load_dotenv
 

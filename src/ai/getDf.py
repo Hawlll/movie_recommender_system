@@ -9,7 +9,8 @@ sys.path.insert(0, str(curDir))
 
 import os
 from constants import COLUMN_NAMES
-from api.get_data import csvReader, newData
+from api.csvHandler import csvReader
+from api.get_data import newData
 from dotenv import load_dotenv
 
 def getDf():
