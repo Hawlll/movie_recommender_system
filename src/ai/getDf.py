@@ -3,6 +3,8 @@ import os
 
 def getDf(fp):
 
+    # Returns movie dataset as a pandas dataframe
+
     if os.path.exists(fp):
 
         return pd.read_csv(fp)
