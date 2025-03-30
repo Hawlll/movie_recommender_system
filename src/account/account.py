@@ -64,7 +64,7 @@ def getUserVector(username):
 def setUserPreferences(user, pref):
 	if not doesUserExist(user): return -1
 	prefStr = ''
-	if preferences == None:
+	if pref == None:
 		prefStr = 'EMPTY'
 	elif len(preferences) == 7:
 		for i in range(6):
